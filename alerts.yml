@@ -1,0 +1,28 @@
+groups:
+  - name: node-alerts
+    rules:
+      - alert: HostHighCPU
+        expr: 100 - (
+          avg(
+          rate(
+          node_cpu_seconds_total{mode="idle"}[5m]
+          )
+          ) * 100
+          ) > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Высокая загрузка CPU"
+          description: "CPU выше 80% более 2 минут"
+
+  - name: node-instance
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Сервер {{ $labels.instance }} недоступен"
+          description: "Сервер недоступен более 1 минуты"

@@ -1,0 +1,7 @@
+route:
+  receiver: telegram
+
+receivers:
+  - name: telegram
+    webhook_configs:
+      - url: http://prom-telegrambot:8080
