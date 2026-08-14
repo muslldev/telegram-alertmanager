@@ -13,8 +13,8 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "Высокая загрузка CPU"
-          description: "CPU выше 80% более 2 минут"
+          summary: "High CPU usage"
+          description: "CPU above 80% for more than 2 minutes"
 
   - name: node-instance
     rules:
@@ -24,5 +24,5 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "Сервер {{ $labels.instance }} недоступен"
-          description: "Сервер недоступен более 1 минуты"
+          summary: "Server {{ $labels.instance }} is unavailable."
+          description: "Server has been unavailable for more than 1 minute."

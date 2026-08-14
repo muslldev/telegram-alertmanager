@@ -1,6 +1,6 @@
-# ![logo](https://skillicons.dev/icons?i=prometheus) Алёртинг с Prometheus и Alertmanager
+# ![logo](https://skillicons.dev/icons?i=prometheus) Alerts with Prometheus and Alertmanager
 
-## 1. Опишем правила для алёртов
+## 1. Let's describe the alert rules
 
 ```
 groups:
@@ -18,8 +18,8 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: "Высокая загрузка CPU"
-          description: "CPU выше 80% более 2 минут"
+          summary: "High CPU usage"
+          description: "CPU above 80% for more than 2 minutes""
 
   - name: node-instance
     rules:
@@ -29,11 +29,11 @@ groups:
         labels:
           severity: critical
         annotations:
-          summary: "Сервер {{ $labels.instance }} недоступен"
-          description: "Сервер недоступен более 1 минуты"
+          summary: "Server {{ $labels.instance }} is unavailable."
+          description: "Server has been unavailable for more than 1 minute."
 ```
 
-## 2. Укажем Telegram в конфиге Alertmanager для отображения уведомлений
+## 2. Specify Telegram in the Alertmanager config for displaying notifications.
 
 ```
 route:
@@ -45,7 +45,7 @@ receivers:
       - url: http://prom-telegrambot:8080
 ```
 
-## 3. Подключим в конфиге Prometheus правила алёртов, Alertmanager и сам Node Exporter
+## 3. Enable alert rules, Alertmanager, and Node Exporter in the Prometheus config.
 
 ```
 global:
@@ -66,20 +66,20 @@ alerting:
             - prom-alertmanager:9093
 ```
 
-## 4. Поднимем наш стек мониторинга
+## 4. Set up our monitoring stack
 
 ```
 docker compose up -d
 ```
 
-## 5. Убедимся, что Prometheus получает правила алёртов
+## 5. Ensure Prometheus receives alert rules
 
 ![prometheus_alerts](assets/prometheus_alerts.png)
 
-## 6. Спровоцируем ситуацию, когда сервер лёг и убедимся, что Alertmanager это обрабатывает
+## 6. Initiate a server downtime scenario and ensure Alertmanager processes it
 
 ![alertmanager_alerts](assets/alertmanager_alerts.png)
 
-## 7. Убедимся, что Telegram отправляет уведомления
+## 7. Ensure Telegram sends notifications
 
 ![telegram_notifications](assets/telegram_notifications.png)
