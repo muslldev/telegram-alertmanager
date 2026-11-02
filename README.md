@@ -19,7 +19,7 @@ groups:
           severity: warning
         annotations:
           summary: "High CPU usage"
-          description: "CPU above 80% for more than 2 minutes""
+          description: "CPU above 80% for more than 2 minutes"
 
   - name: node-instance
     rules:
